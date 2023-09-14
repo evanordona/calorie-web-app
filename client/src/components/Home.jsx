@@ -6,6 +6,7 @@ const Home = () => {
 
     return (
         <div>
+            <div>HOME PAGE</div>
             <div>Count: {goal}</div>
 
 

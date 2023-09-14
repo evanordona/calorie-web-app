@@ -8,7 +8,8 @@ const expressSession = require('express-session')
 const bodyParser = require('body-parser')
 const passport = require('passport')
 const app = express();
-
+const helmet = require('helmet')
+const cors = require('cors')
 const port = process.env.PORT || 5000;
 
 
@@ -18,9 +19,15 @@ mongoose.connect(keys.mongodb.dbURI)
 
 // parses the text as url encoded data
 app.use(bodyParser.urlencoded({ extended: true }));
- 
+
 // parses the text as json
 app.use(bodyParser.json());
+
+// set up cors
+app.use(cors({ origin: "http://localhost:5173", credentials: true }))
+
+app.use(helmet())
+app.use(express.json())
 
 // set up express session cookie
 app.use(expressSession({
@@ -47,7 +54,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/home', (req, res) => {
-  res.send(req.user);
+  res.send({ test: 'test' });
 })
 
 

@@ -3,28 +3,32 @@ const GoogleStrategy = require('passport-google-oauth20');
 const User = require('../models/user-model');
 const keys = require('./keys');
 
-passport.serializeUser((user, done) =>{
+passport.serializeUser((user, done) => {
+    console.log("Serializing user:", user)
     done(null, user.id);
 })
 
-passport.deserializeUser((id, done) => {
-    User.findById(id).then((user) => {
-        done(null, user)
+passport.deserializeUser(async (id, done) => {
+    const user = await User.findOne({ where: { id } }).catch((err) => {
+        console.log("error deserializing", err)
+        done(err, null);
     })
+
+    console.log("Deserializing user:", user)
+
+    if (user) done(null, user);
 })
 
 passport.use(
     new GoogleStrategy({
         //options for the google strat
-        callbackURL: '/auth/google/redirect',
-
-        // TODO: Hide these keys
+        callbackURL: 'http://localhost:5000/auth/google/redirect',
         clientID: keys.google.clientID,
-        clientSecret: keys.google.clientSecret
-
-    }, (accessToken, refreshToken, profile, done) => {
+        clientSecret: keys.google.clientSecret,
+        passReqToCallback: true
+    }, async (req, accessToken, refreshToken, profile, done) => {
         // check if user already exists in db
-        User.findOne({ googleId: profile.id }).then((user) => {
+        const user = await User.findOne({ googleId: profile.id }).then((user) => {
             if (user) {
                 //already have user
                 console.log('user is ' + user)
@@ -33,9 +37,9 @@ passport.use(
             } else {
                 // create user
                 new User({
-                    username: profile.displayName,
+                    username: profile.name.givenName,
                     googleId: profile.id,
-                    goal: 0,
+
                 }).save().then((new_user) => {
                     console.log('new_user created: ' + new_user)
                     done(null, new_user)

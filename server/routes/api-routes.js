@@ -16,6 +16,10 @@ router.get('/', authCheck, (req, res) => {
     res.send('you are logged in')
 });
 
+router.get("/user", authCheck, (req, res) => {
+    res.json(req.user);
+})
+
 router.post('/add', authCheck, (req, res) => {
     
     res.send('you are trying to add' + req.body.item)
