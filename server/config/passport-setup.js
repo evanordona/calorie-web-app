@@ -2,21 +2,16 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20');
 const User = require('../models/user-model');
 const keys = require('./keys');
+const { use } = require('../routes/auth-routes');
+
 
 passport.serializeUser((user, done) => {
-    console.log("Serializing user:", user)
-    done(null, user.id);
+    console.log("Serializing user:", user.id)
+    done(null, user);
 })
 
-passport.deserializeUser(async (id, done) => {
-    const user = await User.findOne({ where: { id } }).catch((err) => {
-        console.log("error deserializing", err)
-        done(err, null);
-    })
-
-    console.log("Deserializing user:", user)
-
-    if (user) done(null, user);
+passport.deserializeUser((user, done) => {
+   done(null, user);
 })
 
 passport.use(
@@ -32,6 +27,7 @@ passport.use(
             if (user) {
                 //already have user
                 console.log('user is ' + user)
+                
                 done(null, user)
 
             } else {

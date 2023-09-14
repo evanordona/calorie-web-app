@@ -1,49 +1,43 @@
-import React, { useDispatch } from 'react'
+import React from 'react'
 import Axios from 'axios'
 import GoogleButton from 'react-google-button'
 import { useNavigate } from 'react-router-dom'
-import { isLoggedIn, setIsLoggedIn, user, setUser } from '../appSlice'
-
-const Login = () => {
-
-    const dispatch = useDispatch();
-    const history = useNavigate();
 
 
+const Login = ({ isLoggedIn, setIsLoggedIn, user, setUser }) => {
 
-    const fetchAuthUser = () => {
-        const response = Axios.get("http://localhost:5000/api/user", { withCredentials: true }).catch((err) => {
+    const navigate = useNavigate();
+
+    const fetchAuthUser = async () => {
+        const response = await Axios.get("http://localhost:5000/api/user", { withCredentials: true }).catch((err) => {
             console.log("Not properly authenticated")
-            dispatch(setIsLoggedIn(false))
-            dispatch(setUser({}))
-
-            history.push("/login/error")
+            setIsLoggedIn(false)
+            setUser({})
+            navigate("/login/error")
         })
 
+        console.log('response receieved')
+        console.log(response)
         if (response && response.data) {
             console.log("User: ", response.data)
-            dispatch(setIsLoggedIn(true))
-            dispatch(setUser(response.data))
-
-            history.push('/home')
+            setIsLoggedIn(true)
+            setUser(response.data)
+            navigate('/')
         }
     }
 
+    const redirectToGoogleSSO = () => {
 
-    const redirectToGoogleSSO = async () => {
-        var timer = null;
         const googleLoginURL = "http://localhost:5000/auth/google"
-        const newWindow = window.open(googleLoginURL, "_blank", "width=500,height=600")
+        const newWindow = window.open(googleLoginURL, "_blank", "width=500, height=600")
 
-        if (newWindow) {
-            timer = setInterval(() => {
-                if (newWindow.closed) {
-
-                    fetchAuthUser();
-                    if (timer) clearInterval(timer)
-                }
-            }, 500)
-        }
+        let timer = setInterval(() => {
+            if (newWindow.closed) {
+                console.log("CLOSED WINDOW")
+                fetchAuthUser();
+                if (timer) clearInterval(timer);
+            }
+        }, 500)
     }
 
     return (

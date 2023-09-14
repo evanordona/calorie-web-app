@@ -26,7 +26,7 @@ app.use(bodyParser.json());
 // set up cors
 app.use(cors({ origin: "http://localhost:5173", credentials: true }))
 
-app.use(helmet())
+// app.use(helmet())
 app.use(express.json())
 
 // set up express session cookie
@@ -52,10 +52,6 @@ app.use('/api', apiRoutes);
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
-
-app.get('/home', (req, res) => {
-  res.send({ test: 'test' });
-})
 
 
 

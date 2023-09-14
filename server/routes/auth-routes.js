@@ -2,12 +2,22 @@ const router = require('express').Router();
 const passport = require('passport');
 
 
-const successLoginUrl = 'http://localhost:5173/home';
+const successLoginUrl = 'http://localhost:5173/login/success';
 const errorLoginUrl = 'http://localhost:5173/login/error';
 
 
 router.get('/login', (req, res) => {
     res.send('login page')
+})
+
+router.get("/login/success", (req, res) =>{
+    if (req.user) {
+        res.status(200).json({
+            success: true,
+            user: req.user,
+            cookies: req.cookies,
+        })
+    }
 })
 
 
@@ -18,7 +28,7 @@ router.get('/login/error', (req, res) => {
 router.get('/logout', (req, res) => {
     // handle with passport
     req.logout();
-    res.redirect('/')
+    res.redirect('http://localhost:5173/')
 })
 
 router.get('/google', passport.authenticate('google', {
@@ -32,6 +42,7 @@ router.get('/google/redirect',
         successRedirect: successLoginUrl
     }), (req, res) => {
         console.log("Auth-routes 30          User: " + req.user)
+        res.send("thank you for signing in!")
     })
 
 module.exports = router;
