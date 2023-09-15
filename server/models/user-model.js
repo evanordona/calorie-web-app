@@ -22,6 +22,10 @@ const userSchema = new Schema({
         type: Number,
         default: 0,
     },
+    streak: {
+        type: Number,
+        default: 0,
+    },
     table: tableSchema,
     prev_tables: [tableSchema],
 });

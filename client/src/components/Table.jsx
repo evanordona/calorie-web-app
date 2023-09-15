@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
-const Table = ({ user, setUser, setTotal }) => {
-  const [foodItems, setFoodItems] = useState({}); // State to store food items
-
+const Table = ({ user, setUser, setTotal, foodItems, setFoodItems }) => {
+  
   const [food, setFood] = useState(''); // State for user input (food)
   const [calories, setCalories] = useState(''); // State for user input (calories)
 
@@ -22,10 +21,10 @@ const Table = ({ user, setUser, setTotal }) => {
     }));
   }, []);
 
-
   useEffect(() => {
     setTotal(user.table.total)
   }, [user.table.total])
+
 
   const handleDelete = (item, cals) => {
     const foodItem = {

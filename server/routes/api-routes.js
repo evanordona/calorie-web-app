@@ -21,6 +21,28 @@ router.get("/user", async (req, res) => {
     res.send(req.user);
 })
 
+router.post('/updateUser', authCheck, async (req, res) => {
+    try {
+        // Find the user document by Google ID
+        const user = await User.findOne({ googleId: req.body.user.googleId });
+
+        if (!user) {
+            console.log('User not found');
+            return res.status(404).json({ error: 'User not found' });
+        }
+        user = req.body.user
+        
+        const updatedUser = await user.save();
+        console.log(user.table.food)
+        
+        console.log('Updated user:', updatedUser);
+        res.json(updatedUser); 
+    } catch (error) {
+        console.error('Error updating user:', error);
+        res.status(500).json({ error: 'Error updating user' });
+    }
+})
+
 router.post('/add', authCheck, async (req, res) => {
 
     try {

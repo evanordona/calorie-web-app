@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
 
-const Logout = ({ setUser, setIsLoggedIn }) => {
+const Logout = ({ setUser, setIsLoggedIn, setFoodItems }) => {
 
     useEffect(() => {
         setUser(null)
         setIsLoggedIn(false)
-
+        setFoodItems({})
         fetch('http://localhost:5000/auth/logout').catch((err) => {
             console.log('err: ', err)
         })

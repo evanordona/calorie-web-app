@@ -35,9 +35,10 @@ passport.use(
                 new User({
                     username: profile.name.givenName,
                     googleId: profile.id,
+                    streak: 0,
                     table: {
                         total: 0,
-                        date: new Date(),
+                        date: new Date().toISOString(),
                         food: {
                             test: 5000
                         }
