@@ -24,8 +24,8 @@ const Progress = ({ user }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center ">
-      <div className=''><h2 className="text-2xl font-semibold mb-4">Streak: {user.streak}</h2></div>
+    <div className="min-h-screen flex flex-col h-screen justify-center items-center bg-gradient-to-b from-yellow-400 to-green-500 text-white" style={{ fontFamily: 'sans-serif' }}>
+      <div className=''><h2 className="text-5xl font-semibold mb-4">Streak: {user.streak}</h2></div>
       {currentTable && (
         <div>
           <h3 className="text-xl font-semibold mb-2">

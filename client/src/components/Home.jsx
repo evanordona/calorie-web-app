@@ -44,11 +44,14 @@ const Home = ({ user, setUser, total, setTotal }) => {
 
     return (
         <div>
-            <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+            <div className="min-h-screen flex flex-col h-screen justify-center items-center bg-gradient-to-b from-yellow-400 to-green-500 text-white" style={{ fontFamily: 'sans-serif' }}>
+                <h1 className="text-6xl font-extrabold" >
+                    GainzTracker
+                </h1>
                 <div className="text-center">
 
-                    <h1 className="text-3xl font-semibold mt-28 mb-4">Goal: {goal}</h1>
-                    <h1 className="text-3xl font-semibold mb-4">Total: {total}</h1>
+                    <h1 className="text-4xl font-semibold mt-10 mb-4">Goal: {goal}</h1>
+                    <h1 className="text-4xl font-semibold mb-4">Total: {total}</h1>
 
                     {
                         total >= goal ? (
@@ -73,7 +76,7 @@ const Home = ({ user, setUser, total, setTotal }) => {
                         {/* Button to update the goal */}
                         <button
                             onClick={handleGoalUpdate}
-                            className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+                            className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 mt-10"
                         >
                             Update Goal
                         </button>

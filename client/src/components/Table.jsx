@@ -109,7 +109,7 @@ const Table = ({ user, setUser, setTotal, foodItems, setFoodItems }) => {
 
   return (
     <div className="container mx-auto mt-8">
-      <h2 className="text-2xl font-semibold mb-4">Food Tracker</h2>
+      <h2 className="text-5xl font-semibold mb-10">Food Tracker</h2>
       <table className="w-full border-collapse border">
         <thead>
           <tr>
@@ -153,7 +153,7 @@ const Table = ({ user, setUser, setTotal, foodItems, setFoodItems }) => {
         />
         <button
           onClick={handleAddFood}
-          className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+          className="bg-blue-500 text-white px-4 py-2 m-4 rounded-md hover:bg-blue-600"
         >
           Add
         </button>

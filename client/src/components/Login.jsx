@@ -101,13 +101,16 @@ const Login = ({ isLoggedIn, setIsLoggedIn, user, setUser }) => {
     }
 
     return (
-        <div className="flex h-screen items-center justify-center">
-            <div className="text-center">
-                <h1 className="text-4xl font-bold mb-4">Login</h1>
-                <GoogleButton onClick={redirectToGoogleSSO} />
-            </div>
+        <div className="flex flex-col h-screen justify-center items-center bg-gradient-to-b from-yellow-400 to-green-500 text-white">
+          <h1 className="text-6xl font-extrabold mb-8" style={{ fontFamily: 'sans-serif' }}>
+            GainzTracker
+          </h1>
+          <div className="text-center">
+            <h2 className="text-2xl font-bold mb-4">Login</h2>
+            <GoogleButton onClick={redirectToGoogleSSO} />
+          </div>
         </div>
-    )
+      );
 }
 
 export default Login
