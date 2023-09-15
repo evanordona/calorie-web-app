@@ -40,7 +40,7 @@ passport.use(
                         total: 0,
                         date: new Date().toISOString(),
                         food: {
-                            test: 5000
+                            test123: 5000
                         }
                     }
                 }).save().then((new_user) => {

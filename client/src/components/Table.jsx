@@ -8,7 +8,7 @@ const Table = ({ user, setUser, setTotal, foodItems, setFoodItems }) => {
   useEffect(() => {
     // Filter out the 'test' key from user.table.food
     const filteredFoodItems = Object.keys(user.table.food).reduce((acc, key) => {
-      if (key !== 'test') {
+      if (key !== 'test123') {
         acc[key] = user.table.food[key];
       }
       return acc;
@@ -42,6 +42,8 @@ const Table = ({ user, setUser, setTotal, foodItems, setFoodItems }) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(requestBody),
+      credentials: 'include',
+      mode: 'cors'
     }).then((response) => response.json())
       .then((data) => {
         const updatedFoodItems = { ...foodItems };
@@ -90,6 +92,8 @@ const Table = ({ user, setUser, setTotal, foodItems, setFoodItems }) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(requestBody),
+        credentials: 'include',
+        mode: 'cors'
       })
         .then((response) => response.json())
         .then((data) => {

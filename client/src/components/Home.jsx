@@ -54,6 +54,8 @@ const Home = ({ user, setUser, total, setTotal, setHasEffectRun, hasEffectRun })
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify(requestBody),
+                    credentials: 'include',
+                    mode: 'cors'
                 })
                     .then((response) => response.json())
                     .then((data) => {
@@ -98,6 +100,8 @@ const Home = ({ user, setUser, total, setTotal, setHasEffectRun, hasEffectRun })
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(requestBody),
+                credentials: 'include',
+                mode: 'cors'
             })
                 .then((response) => response.json())
                 .then((data) => {

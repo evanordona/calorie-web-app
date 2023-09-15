@@ -1,6 +1,5 @@
 const router = require('express').Router();
 const User = require('../models/user-model');
-const { currentUser } = require('../config/passport-setup');
 
 const authCheck = (req, res, next) => {
     if (!req.body.user) {

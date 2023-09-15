@@ -56,7 +56,7 @@ const Progress = ({ user }) => {
               </tr>
             </thead>
             <tbody>
-              {currentTable.food ? Object.keys(currentTable.food).map((key) => key !== 'test' ? (
+              {currentTable.food ? Object.keys(currentTable.food).map((key) => key !== 'test123' ? (
                 <tr key={key}>
                   <td className="border p-2">{key}</td>
                   <td className="border p-2">{currentTable.food[key]}</td>
