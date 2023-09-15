@@ -10,7 +10,7 @@ router.get('/login', (req, res) => {
     res.send('login page')
 })
 
-router.get("/login/success", (req, res) =>{
+router.get("/login/success", (req, res) => {
     if (req.user) {
         res.status(200).json({
             success: true,
@@ -27,8 +27,11 @@ router.get('/login/error', (req, res) => {
 
 router.get('/logout', (req, res) => {
     // handle with passport
-    req.logout();
-    res.redirect('http://localhost:5173/')
+    req.logout(function (err) {
+        if (err) { return next(err); }
+        console.log('logged out')
+        res.redirect('/');
+    });
 })
 
 router.get('/google', passport.authenticate('google', {

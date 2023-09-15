@@ -9,7 +9,12 @@ const LoginSuccess = () => {
     }, [])
 
     return (
-        <div>Login Success</div>
+        <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+            <div className="text-center">
+
+                <h1 className="text-3xl font-semibold mt-28 mb-4">Login Success</h1>
+            </div>
+        </div>
     )
 }
 

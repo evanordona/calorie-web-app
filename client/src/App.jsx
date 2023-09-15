@@ -5,6 +5,7 @@ import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 import LoginSuccess from './components/LoginSuccess.jsx'
 import Navbar from './components/Navbar.jsx'
 import Food from './components/Food.jsx'
+import Logout from './components/Logout.jsx'
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
         <Route exact path='/login/success' element={<LoginSuccess />} />
         <Route exact path='/login/error'>Error loggin in.</Route>
         <Route exact path='/food' element={user ? <Food user={user} setUser={setUser} setTotal={setTotal} /> : <Navigate to='/login' />} />
+        <Route exact path='/logout' element={user ? <Logout setUser={setUser} setIsLoggedIn={setIsLoggedIn} /> : <Navigate to='/login'/>} />
 
       </Routes>
     </>

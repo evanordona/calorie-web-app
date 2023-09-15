@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import Table from './Table.jsx'
 import PieGraph from './PieGraph.jsx';
 
 const Home = ({ user, setUser, total, setTotal }) => {
@@ -7,9 +6,9 @@ const Home = ({ user, setUser, total, setTotal }) => {
 
     const [newGoal, setNewGoal] = useState(''); // State to store the new goal value
 
-    useEffect(()=> {
+    useEffect(() => {
         setGoal(user.goal)
-        
+
     }, [user.goal])
 
     useEffect(() => {
@@ -58,26 +57,26 @@ const Home = ({ user, setUser, total, setTotal }) => {
                             </div>) : (<div>
                                 <div className='max-w-xs m-auto'><PieGraph user={user} /></div>
 
-                                
+
                             </div>)
                     }
                     <div>
                         {/* Input field to enter the new goal value */}
                         <input
-                                    type="number"
-                                    placeholder="Enter new goal"
-                                    value={newGoal}
-                                    onChange={(e) => setNewGoal(e.target.value)}
-                                    className="border rounded-md px-2 py-1 mr-2"
-                                />
+                            type="number"
+                            placeholder="Enter new goal"
+                            value={newGoal}
+                            onChange={(e) => setNewGoal(e.target.value)}
+                            className="border rounded-md px-2 py-1 mr-2"
+                        />
 
-                                {/* Button to update the goal */}
-                                <button
-                                    onClick={handleGoalUpdate}
-                                    className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
-                                >
-                                    Update Goal
-                                </button>
+                        {/* Button to update the goal */}
+                        <button
+                            onClick={handleGoalUpdate}
+                            className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+                        >
+                            Update Goal
+                        </button>
                     </div>
 
                 </div>
