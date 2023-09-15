@@ -21,6 +21,13 @@ const Login = ({ isLoggedIn, setIsLoggedIn, user, setUser }) => {
                 console.log("updating tables and creating default")
                 // Push the current user.table to user.prev_tables
                 const updatedPrevTables = [...user.prev_tables, user.table];
+                let streakUpdate;
+                // streak logic
+                if (user.table.total >= user.goal) {
+                    streakUpdate = user.streak += 1
+                } else {
+                    streakUpdate = 0
+                }
 
                 // Create a new table with default values
                 const newTable = {
@@ -35,6 +42,7 @@ const Login = ({ isLoggedIn, setIsLoggedIn, user, setUser }) => {
 
                 const updatedUser = {
                     ...user,
+                    streak: streakUpdate,
                     prev_tables: updatedPrevTables,
                     table: newTable,
                 };
