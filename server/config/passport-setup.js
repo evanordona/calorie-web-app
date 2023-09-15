@@ -35,7 +35,13 @@ passport.use(
                 new User({
                     username: profile.name.givenName,
                     googleId: profile.id,
-
+                    table: {
+                        total: 0,
+                        date: new Date(),
+                        food: {
+                            test: 5000
+                        }
+                    }
                 }).save().then((new_user) => {
                     console.log('new_user created: ' + new_user)
                     done(null, new_user)

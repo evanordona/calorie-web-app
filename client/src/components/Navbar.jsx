@@ -15,8 +15,8 @@ const Navbar = ({ user }) => {
     },
     {
       id: 2,
-      link: '/fav',
-      text: 'Fav',
+      link: '/food',
+      text: 'Food',
     },
     {
       id: 3,
