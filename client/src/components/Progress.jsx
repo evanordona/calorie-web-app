@@ -2,12 +2,29 @@ import React, { useState, useEffect } from 'react';
 
 const Progress = ({ user }) => {
   const [currentTableIndex, setCurrentTableIndex] = useState(0);
-  const [currentTable, setCurrentTable] = useState(null);
+  const [currentTable, setCurrentTable] = useState({});
+
+  function getFormattedDate(date) {
+    if (currentTable !== undefined) {
+      const dateObject = new Date(date);
+
+    // Extract the components of the date (month, day, and year)
+      const month = (dateObject.getMonth() + 1).toString().padStart(2, '0');
+      const day = dateObject.getDate().toString().padStart(2, '0');
+      const year = dateObject.getFullYear();
+
+      // Create the formatted date string in the desired format
+      const formattedDate = `${month}-${day}-${year}`;
+      return formattedDate
+    }
+    
+  }
 
   useEffect(() => {
     // Set the initial current table when the component mounts
     if (user.prev_tables.length > 0) {
       setCurrentTable(user.prev_tables[currentTableIndex]);
+
     }
   }, [user, currentTableIndex]);
 
@@ -29,7 +46,7 @@ const Progress = ({ user }) => {
       {currentTable && (
         <div>
           <h3 className="text-xl font-semibold mb-2">
-            Date: {currentTable.date}
+            Date: {currentTable.date ? getFormattedDate(currentTable.date) : ''} 
           </h3>
           <table className="w-full border-collapse border">
             <thead>
@@ -39,19 +56,19 @@ const Progress = ({ user }) => {
               </tr>
             </thead>
             <tbody>
-              {currentTable.table.map((item, index) => (
-                <tr key={index}>
-                  <td className="border p-2">{item.food}</td>
-                  <td className="border p-2">{item.calories}</td>
+              {currentTable.food ? Object.keys(currentTable.food).map((key) => key !== 'test' ? (
+                <tr key={key}>
+                  <td className="border p-2">{key}</td>
+                  <td className="border p-2">{currentTable.food[key]}</td>
                 </tr>
-              ))}
+              ) : <></>) : <></>}
             </tbody>
           </table>
         </div>
       )}
-               
+
       <div className="mt-4">
-      <br></br>
+        <br></br>
         <button
           onClick={handlePreviousTable}
           className="bg-blue-500 text-white px-4 py-2 rounded-md mr-2"

@@ -142,14 +142,14 @@ const Table = ({ user, setUser, setTotal, foodItems, setFoodItems }) => {
           placeholder="Food"
           value={food}
           onChange={(e) => setFood(e.target.value)}
-          className="border p-2 mr-2"
+          className="border p-2 mr-2 text-black"
         />
         <input
           type="text"
           placeholder="Calories"
           value={calories}
           onChange={(e) => setCalories(e.target.value)}
-          className="border p-2 mr-2"
+          className="border p-2 mr-2 text-black"
         />
         <button
           onClick={handleAddFood}

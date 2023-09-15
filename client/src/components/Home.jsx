@@ -1,10 +1,76 @@
 import React, { useState, useEffect } from 'react'
 import PieGraph from './PieGraph.jsx';
 
-const Home = ({ user, setUser, total, setTotal }) => {
+const Home = ({ user, setUser, total, setTotal, setHasEffectRun, hasEffectRun }) => {
     const [goal, setGoal] = useState(user.goal);
 
     const [newGoal, setNewGoal] = useState(''); // State to store the new goal value
+
+    useEffect(() => {
+        console.log('IN USE EFFECT')
+        if (!hasEffectRun && user && user.table) {
+            const currentDate = new Date();
+            const tomorrowDate = new Date(currentDate.getDate() + 1)
+            const tableDate = new Date(user.table.date);
+            console.log("Checking to see if new table is needed...")
+            // Check if the current date is greater than the user.table.date
+            if (currentDate.getDate() > tableDate.getDate()) {
+                console.log("updating tables and creating default")
+                // Push the current user.table to user.prev_tables
+                const updatedPrevTables = [...user.prev_tables, user.table];
+                let streakUpdate;
+                // streak logic
+                if (user.table.total >= user.goal) {
+                    streakUpdate = user.streak += 1
+                } else {
+                    streakUpdate = 0
+                }
+
+                // Create a new table with default values
+                const newTable = {
+                    date: currentDate.toISOString(), // Current date as ISO string
+                    total: 0,
+                    food: {
+                        test: 0
+                    }
+                };
+
+                // Update the user object with the new tables
+
+                const updatedUser = {
+                    ...user,
+                    streak: streakUpdate,
+                    prev_tables: updatedPrevTables,
+                    table: newTable,
+                };
+
+                const requestBody = {
+                    user: updatedUser
+                }
+
+                fetch('http://localhost:5000/api/updateUser', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(requestBody),
+                })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        console.log(data); // Log the server response
+                        setUser(data)
+
+                    })
+                    .catch((error) => {
+                        setUser(updatedUser);
+                        setFoodItems({});
+                        setTotal(0);
+                    });
+                
+            }
+            setHasEffectRun(true);
+        }
+    }, [user]);
 
     useEffect(() => {
         setGoal(user.goal)
@@ -14,6 +80,7 @@ const Home = ({ user, setUser, total, setTotal }) => {
     useEffect(() => {
         setTotal(user.table.total)
     }, [])
+
 
     const handleGoalUpdate = () => {
         if (!isNaN(newGoal) && newGoal !== '' && Number(newGoal) > -1) {
@@ -70,7 +137,7 @@ const Home = ({ user, setUser, total, setTotal }) => {
                             placeholder="Enter new goal"
                             value={newGoal}
                             onChange={(e) => setNewGoal(e.target.value)}
-                            className="border rounded-md px-2 py-1 mr-2"
+                            className="border rounded-md px-2 py-1 mr-2 text-black"
                         />
 
                         {/* Button to update the goal */}

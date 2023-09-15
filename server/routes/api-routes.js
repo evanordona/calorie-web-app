@@ -30,7 +30,11 @@ router.post('/updateUser', authCheck, async (req, res) => {
             console.log('User not found');
             return res.status(404).json({ error: 'User not found' });
         }
-        user = req.body.user
+
+        user.table = req.body.user.table
+        user.streak = req.body.user.streak
+        user.prev_tables = req.body.user.prev_tables
+
         
         const updatedUser = await user.save();
         console.log(user.table.food)
