@@ -6,7 +6,7 @@ const Logout = ({ setUser, setIsLoggedIn, setFoodItems }) => {
         setUser(null)
         setIsLoggedIn(false)
         setFoodItems({})
-        fetch('http://localhost:5000/auth/logout').catch((err) => {
+        fetch('https://gainztracker-api.onrender.com/auth/logout').catch((err) => {
             console.log('err: ', err)
         })
     }, [])

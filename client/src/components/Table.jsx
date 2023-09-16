@@ -36,7 +36,7 @@ const Table = ({ user, setUser, setTotal, foodItems, setFoodItems }) => {
       foodItem: foodItem
     }
 
-    fetch(`http://localhost:5000/api/delete`, {
+    fetch(`https://gainztracker-api.onrender.com/api/delete`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -86,7 +86,7 @@ const Table = ({ user, setUser, setTotal, foodItems, setFoodItems }) => {
 
       // update backend here
       // Make a POST request to the Express.js server
-      fetch('http://localhost:5000/api/add', {
+      fetch('https://gainztracker-api.onrender.com/api/add', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

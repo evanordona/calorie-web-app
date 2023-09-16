@@ -51,7 +51,7 @@ const Home = ({ user, setUser, total, setTotal, setHasEffectRun, hasEffectRun })
                     user: updatedUser
                 }
 
-                fetch('http://localhost:5000/api/updateUser', {
+                fetch('https://gainztracker-api.onrender.com/api/updateUser', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -97,7 +97,7 @@ const Home = ({ user, setUser, total, setTotal, setHasEffectRun, hasEffectRun })
                 goal: Number(newGoal),
             };
 
-            fetch('http://localhost:5000/api/update-goal', {
+            fetch('https://gainztracker-api.onrender.com/api/update-goal', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

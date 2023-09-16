@@ -10,7 +10,7 @@ const Login = ({ isLoggedIn, setIsLoggedIn, user, setUser }) => {
     const navigate = useNavigate();
 
     const fetchAuthUser = async () => {
-        const response = await Axios.get("http://localhost:5000/api/user", { withCredentials: true }).catch((err) => {
+        const response = await Axios.get("https://gainztracker-api.onrender.com/api/user", { withCredentials: true }).catch((err) => {
             console.log("Not properly authenticated")
             setIsLoggedIn(false)
             setUser({})
@@ -29,7 +29,7 @@ const Login = ({ isLoggedIn, setIsLoggedIn, user, setUser }) => {
 
     const redirectToGoogleSSO = () => {
 
-        const googleLoginURL = "http://localhost:5000/auth/google"
+        const googleLoginURL = "https://gainztracker-api.onrender.com/auth/google"
         const newWindow = window.open(googleLoginURL, "_blank", "width=500, height=600")
 
         let timer = setInterval(() => {
