@@ -7,10 +7,13 @@ const Home = ({ user, setUser, total, setTotal, setHasEffectRun, hasEffectRun })
     const [newGoal, setNewGoal] = useState(''); // State to store the new goal value
 
     useEffect(() => {
-        console.log('IN USE EFFECT')
+
         if (!hasEffectRun && user && user.table) {
             const currentDate = new Date();
+
+            //for testing progress purposes 
             const tomorrowDate = new Date(currentDate.getDate() + 1)
+
             const tableDate = new Date(user.table.date);
             console.log("Checking to see if new table is needed...")
             // Check if the current date is greater than the user.table.date
@@ -68,7 +71,7 @@ const Home = ({ user, setUser, total, setTotal, setHasEffectRun, hasEffectRun })
                         setFoodItems({});
                         setTotal(0);
                     });
-                
+
             }
             setHasEffectRun(true);
         }
@@ -87,8 +90,8 @@ const Home = ({ user, setUser, total, setTotal, setHasEffectRun, hasEffectRun })
     const handleGoalUpdate = () => {
         if (!isNaN(newGoal) && newGoal !== '' && Number(newGoal) > -1) {
             setGoal(Number(newGoal));
-            // update new goal to backend document
 
+            // update new goal to backend document
             const requestBody = {
                 user: user,
                 goal: Number(newGoal),
@@ -116,7 +119,7 @@ const Home = ({ user, setUser, total, setTotal, setHasEffectRun, hasEffectRun })
     return (
         <div>
             <div className="min-h-screen flex flex-col h-screen justify-center items-center bg-gradient-to-b from-yellow-400 to-green-500 text-white" style={{ fontFamily: 'sans-serif' }}>
-                <h1 className="text-6xl font-extrabold" >
+                <h1 className="text-5xl font-extrabold" >
                     GainzTracker
                 </h1>
                 <div className="text-center">
@@ -127,11 +130,9 @@ const Home = ({ user, setUser, total, setTotal, setHasEffectRun, hasEffectRun })
                     {
                         total >= goal ? (
                             <div>
-                                GAINZ
+                                <div className='w-full mx-auto'><iframe src="https://giphy.com/embed/3oriNZoNvn73MZaFYk"  allowFullScreen></iframe></div>
                             </div>) : (<div>
                                 <div className='max-w-xs m-auto'><PieGraph user={user} /></div>
-
-
                             </div>)
                     }
                     <div>

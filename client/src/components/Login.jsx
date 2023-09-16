@@ -34,7 +34,7 @@ const Login = ({ isLoggedIn, setIsLoggedIn, user, setUser }) => {
 
         let timer = setInterval(() => {
             if (newWindow.closed) {
-                console.log("CLOSED WINDOW")
+                
                 fetchAuthUser();
                 if (timer) clearInterval(timer);
             }
@@ -43,7 +43,7 @@ const Login = ({ isLoggedIn, setIsLoggedIn, user, setUser }) => {
 
     return (
         <div className="flex flex-col h-screen justify-center items-center bg-gradient-to-b from-yellow-400 to-green-500 text-white">
-          <h1 className="text-6xl font-extrabold mb-8" style={{ fontFamily: 'sans-serif' }}>
+          <h1 className="text-5xl font-extrabold mb-8" style={{ fontFamily: 'sans-serif' }}>
             GainzTracker
           </h1>
           <div className="text-center">
