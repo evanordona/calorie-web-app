@@ -6,7 +6,6 @@ const { use } = require('../routes/auth-routes');
 
 
 passport.serializeUser((user, done) => {
-    console.log("Serializing user:", user.id)
     done(null, user);
 })
 
@@ -17,13 +16,13 @@ passport.deserializeUser((user, done) => {
 passport.use(
     new GoogleStrategy({
         //options for the google strat
-        callbackURL: 'https://gainztracker-api.onrender.com/auth/google/redirect',
+        callbackURL: 'http://localhost:5000/auth/google/redirect',
         clientID: keys.google.clientID,
         clientSecret: keys.google.clientSecret,
         passReqToCallback: true
-    }, async (req, accessToken, refreshToken, profile, done) => {
+    }, (req, accessToken, refreshToken, profile, done) => {
         // check if user already exists in db
-        const user = await User.findOne({ googleId: profile.id }).then((user) => {
+        const user = User.findOne({ googleId: profile.id }).then((user) => {
             if (user) {
                 //already have user
                 console.log('user is ' + user)

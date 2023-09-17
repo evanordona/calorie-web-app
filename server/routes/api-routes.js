@@ -1,6 +1,25 @@
 const router = require('express').Router();
 const User = require('../models/user-model');
 
+// Custom middleware to check authentication
+const isAuth = (req, res, next) => {
+    console.log('checking authentication...')
+    if (req.isAuthenticated()) {
+        console.log('authenticated');
+        return next();
+    }
+    console.log('not authenticated');
+    // Handle unauthenticated requests here
+    res.status(401).json({ message: 'Unauthorized' });
+};
+
+// Protected route that requires authentication
+router.get('/user', isAuth, (req, res) => {
+    console.log('API ROUTES USER - ', req.user);
+    res.json(req.user);
+});
+
+
 const authCheck = (req, res, next) => {
     if (!req.body.user) {
         // if user is not logged in
@@ -15,10 +34,6 @@ router.get('/', authCheck, (req, res) => {
     res.send('you are logged in')
 });
 
-router.get("/user", async (req, res) => {
-    console.log("API ROUTES USER - ", req.user)
-    res.send(req.user);
-})
 
 router.post('/updateUser', authCheck, async (req, res) => {
     try {
@@ -34,12 +49,12 @@ router.post('/updateUser', authCheck, async (req, res) => {
         user.streak = req.body.user.streak
         user.prev_tables = req.body.user.prev_tables
 
-        
+
         const updatedUser = await user.save();
         console.log(user.table.food)
-        
+
         console.log('Updated user:', updatedUser);
-        res.json(updatedUser); 
+        res.json(updatedUser);
     } catch (error) {
         console.error('Error updating user:', error);
         res.status(500).json({ error: 'Error updating user' });
@@ -69,7 +84,7 @@ router.post('/add', authCheck, async (req, res) => {
         user.markModified('table');
         const updatedUser = await user.save();
         console.log(user.table.food)
-        
+
         console.log('Updated user:', updatedUser);
         res.json(updatedUser); // Send the updated user as JSON
     } catch (error) {
@@ -92,7 +107,7 @@ router.delete('/delete', authCheck, async (req, res) => {
 
         // save total
         user.table.total -= req.body.foodItem.calories
-        
+
         if (user.table.total < 0)
             user.table.total = 0;
 
@@ -104,16 +119,16 @@ router.delete('/delete', authCheck, async (req, res) => {
 
         const filteredFoodItems = Object.keys(user.table.food).reduce((acc, key) => {
             if (key !== req.body.foodItem.food) {
-              acc[key] = user.table.food[key];
+                acc[key] = user.table.food[key];
             }
             return acc;
-          }, {});
+        }, {});
 
         user.table.food = filteredFoodItems
         user.markModified('table');
         const updatedUser = await user.save();
         console.log(user.table.food)
-        
+
         console.log('Updated user:', updatedUser);
         res.json(updatedUser); // Send the updated user as JSON
     } catch (error) {
@@ -148,8 +163,5 @@ router.post('/update-goal', authCheck, async (req, res) => {
 
 });
 
-router.delete('/delete', authCheck, (req, res) => {
-    res.send('you are trying to delete' + req.body.item)
-});
 
 module.exports = router;

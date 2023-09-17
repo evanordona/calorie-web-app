@@ -2,8 +2,8 @@ const router = require('express').Router();
 const passport = require('passport');
 
 
-const successLoginUrl = 'https://gainztracker.onrender.com/login/success';
-const errorLoginUrl = 'https://gainztracker.onrender.com/login/error';
+const successLoginUrl = 'http://localhost:5173/login/success';
+const errorLoginUrl = 'http://localhost:5173';
 
 
 router.get('/login', (req, res) => {
@@ -12,6 +12,7 @@ router.get('/login', (req, res) => {
 
 router.get("/login/success", (req, res) => {
     if (req.user) {
+        console.log("LOGIN SUCESS ON SERVER")
         res.status(200).json({
             success: true,
             user: req.user,
@@ -45,7 +46,8 @@ router.get('/google/redirect',
         successRedirect: successLoginUrl
     }), (req, res) => {
         console.log("Auth-routes 30          User: " + req.user)
+        alert('signed in')
         res.send("thank you for signing in!")
-    })
+})
 
 module.exports = router;

@@ -14,7 +14,6 @@ const port = process.env.PORT || 5000;
 
 
 // connect to mongodb
-// TODO: hide URI
 mongoose.connect(keys.mongodb.dbURI)
 
 // parses the text as url encoded data
@@ -24,9 +23,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // set up cors
-app.use(cors({ origin: "https://gainztracker.onrender.com", credentials: true }))
+app.use(cors({ origin: "http://localhost:5173", credentials: true }))
 
-// app.use(helmet())
+//app.use(helmet())
 app.use(express.json())
 
 // set up express session cookie

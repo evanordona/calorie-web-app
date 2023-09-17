@@ -1,12 +1,38 @@
 import React, { useEffect } from 'react'
+import Axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
-const LoginSuccess = () => {
-
+const LoginSuccess = ({ user, setUser, setIsLoggedIn }) => {
+    const navigate = useNavigate();
     useEffect(() => {
-        setTimeout(() => {
-            window.close();
-        }, 500);
-    }, [])
+        async function fetchData() {
+            try {
+                const response = await Axios.get("http://localhost:5000/api/user", { withCredentials: true });
+                console.log('response received');
+                console.log(response);
+
+                if (response && response.data) {
+                    console.log("User: ", response.data);
+                    setIsLoggedIn(true);
+                    setUser(response.data);
+
+                    navigate('/');
+                } else {
+                    console.log("User data not found in the response.");
+                    setIsLoggedIn(false);
+                    setUser({});
+                }
+
+
+            } catch (error) {
+                console.error("Error during authentication:", error);
+                setIsLoggedIn(false);
+                setUser({});
+            }
+        }
+        fetchData()
+
+    }, []);
 
     return (
         <div className="min-h-screen bg-gray-100 flex items-center justify-center">
