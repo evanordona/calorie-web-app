@@ -23,10 +23,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // set up cors
-app.use(cors({ origin: "http://localhost:5173", credentials: true }))
+app.use(cors({ origin: "https://gainztracker.onrender.com", credentials: true }))
 
 //app.use(helmet())
 app.use(express.json())
+
+app.enable('trust proxy')
 
 // set up express session cookie
 app.use(expressSession({
@@ -35,13 +37,17 @@ app.use(expressSession({
   resave: false,
   saveUninitialized: true,
   cookie: {
+    secure: true,
+    sameSite: 'none',
     maxAge: 24 * 60 * 60 * 1000, // sets the maxAge to 1 day (in milliseconds)
   },
 }))
 
+
 // initialize passport
 app.use(passport.initialize())
 app.use(passport.session())
+ 
 
 // set up routes
 app.use('/auth', authRoutes);

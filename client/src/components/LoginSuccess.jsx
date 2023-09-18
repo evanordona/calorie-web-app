@@ -7,7 +7,7 @@ const LoginSuccess = ({ user, setUser, setIsLoggedIn }) => {
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await Axios.get("http://localhost:5000/api/user", { withCredentials: true });
+                const response = await Axios.get("https://gainztracker-api.onrender.com/api/user", { withCredentials: true });
                 console.log('response received');
                 console.log(response);
 

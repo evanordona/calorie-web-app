@@ -2,8 +2,8 @@ const router = require('express').Router();
 const passport = require('passport');
 
 
-const successLoginUrl = 'http://localhost:5173/login/success';
-const errorLoginUrl = 'http://localhost:5173';
+const successLoginUrl = 'https://gainztracker.onrender.com/login/success';
+const errorLoginUrl = 'https://gainztracker.onrender.com';
 
 
 router.get('/login', (req, res) => {

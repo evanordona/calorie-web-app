@@ -5,7 +5,7 @@ import GoogleButton from 'react-google-button'
 const Login = ({ isLoggedIn, setIsLoggedIn, user, setUser }) => {
 
     const redirectToGoogleSSO = () => {
-        const googleLoginURL = "http://localhost:5000/auth/google"
+        const googleLoginURL = "https://gainztracker-api.onrender.com/auth/google"
         window.open(googleLoginURL, "_self", "width=500, height=600")
     }
 

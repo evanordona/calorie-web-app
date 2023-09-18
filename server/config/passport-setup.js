@@ -16,7 +16,7 @@ passport.deserializeUser((user, done) => {
 passport.use(
     new GoogleStrategy({
         //options for the google strat
-        callbackURL: 'http://localhost:5000/auth/google/redirect',
+        callbackURL: 'https://gainztracker-api.onrender.com/auth/google/redirect',
         clientID: keys.google.clientID,
         clientSecret: keys.google.clientSecret,
         passReqToCallback: true
