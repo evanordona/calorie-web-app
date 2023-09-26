@@ -27,7 +27,7 @@ router.get('/login/error', (req, res) => {
 })
 
 router.get('/logout', (req, res) => {
-    // handle with passport
+    // Handle with passport
     req.logout(function (err) {
         if (err) { return next(err); }
         console.log('logged out')

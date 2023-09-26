@@ -3,25 +3,28 @@ import PieGraph from './PieGraph.jsx';
 
 const Home = ({ user, setUser, total, setTotal, setHasEffectRun, hasEffectRun }) => {
     const [goal, setGoal] = useState(user.goal);
-    const [newGoal, setNewGoal] = useState(''); // State to store the new goal value
+    const [newGoal, setNewGoal] = useState(''); 
 
     useEffect(() => {
 
         if (!hasEffectRun && user && user.table) {
             const currentDate = new Date();
 
-            //for testing progress purposes 
+            // For testing progress purposes 
             const tomorrowDate = new Date(currentDate.getDate() + 1)
 
             const tableDate = new Date(user.table.date);
-            console.log("Checking to see if new table is needed...")
+
             // Check if the current date is greater than the user.table.date
             if (currentDate.getDate() > tableDate.getDate()) {
                 console.log("updating tables and creating default")
+
                 // Push the current user.table to user.prev_tables
                 const updatedPrevTables = [user.table, ...user.prev_tables];
-                let streakUpdate;
+                
                 // streak logic
+                let streakUpdate;
+    
                 if (user.table.total >= user.goal) {
                     streakUpdate = user.streak += 1
                 } else {
@@ -30,7 +33,7 @@ const Home = ({ user, setUser, total, setTotal, setHasEffectRun, hasEffectRun })
 
                 // Create a new table with default values
                 const newTable = {
-                    date: currentDate.toISOString(), // Current date as ISO string
+                    date: currentDate.toISOString(),
                     total: 0,
                     food: {
                         test123: 0
@@ -38,7 +41,6 @@ const Home = ({ user, setUser, total, setTotal, setHasEffectRun, hasEffectRun })
                 };
 
                 // Update the user object with the new tables
-
                 const updatedUser = {
                     ...user,
                     streak: streakUpdate,
@@ -61,7 +63,7 @@ const Home = ({ user, setUser, total, setTotal, setHasEffectRun, hasEffectRun })
                 })
                     .then((response) => response.json())
                     .then((data) => {
-                        console.log(data); // Log the server response
+                        console.log(data);
                         setUser(data)
 
                     })
@@ -78,7 +80,6 @@ const Home = ({ user, setUser, total, setTotal, setHasEffectRun, hasEffectRun })
 
     useEffect(() => {
         setGoal(user.goal)
-
     }, [user.goal])
 
     useEffect(() => {
@@ -90,7 +91,7 @@ const Home = ({ user, setUser, total, setTotal, setHasEffectRun, hasEffectRun })
         if (!isNaN(newGoal) && newGoal !== '' && Number(newGoal) > -1) {
             setGoal(Number(newGoal));
 
-            // update new goal to backend document
+            // Update new goal to backend document
             const requestBody = {
                 user: user,
                 goal: Number(newGoal),
@@ -107,7 +108,7 @@ const Home = ({ user, setUser, total, setTotal, setHasEffectRun, hasEffectRun })
             })
                 .then((response) => response.json())
                 .then((data) => {
-                    console.log(data); // Log the server response
+                    console.log(data);
                 })
                 .catch((error) => {
                     console.error('Error:', error);
@@ -126,6 +127,7 @@ const Home = ({ user, setUser, total, setTotal, setHasEffectRun, hasEffectRun })
                     <h1 className="text-4xl font-semibold mt-10 mb-4">Goal: {goal}</h1>
                     <h1 className="text-4xl font-semibold mb-4">Total: {total}</h1>
 
+                    {/* Show gif if total is greater than goal, else show piegraph */}
                     {
                         total >= goal ? (
                             <div>

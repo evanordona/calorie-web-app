@@ -15,22 +15,20 @@ passport.deserializeUser((user, done) => {
 
 passport.use(
     new GoogleStrategy({
-        //options for the google strat
+        // Options for the google strat
         callbackURL: 'https://gainztracker-api.onrender.com/auth/google/redirect',
         clientID: keys.google.clientID,
         clientSecret: keys.google.clientSecret,
         passReqToCallback: true
     }, (req, accessToken, refreshToken, profile, done) => {
-        // check if user already exists in db
+        // Check if user already exists in db
         const user = User.findOne({ googleId: profile.id }).then((user) => {
             if (user) {
-                //already have user
+                // Already have user
                 console.log('user is ' + user)
-                
                 done(null, user)
-
             } else {
-                // create user
+                // Create user
                 new User({
                     username: profile.name.givenName,
                     googleId: profile.id,
@@ -48,8 +46,5 @@ passport.use(
                 })
             }
         })
-
-
     })
-
 )

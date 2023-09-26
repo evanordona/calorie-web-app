@@ -22,10 +22,10 @@ router.get('/user', isAuth, (req, res) => {
 
 const authCheck = (req, res, next) => {
     if (!req.body.user) {
-        // if user is not logged in
+        // If user is not logged in
         res.status(401).send("Not logged in!!")
     } else {
-        // go to next middleware
+        // Go to next middleware
         next()
     }
 };
@@ -72,13 +72,13 @@ router.post('/add', authCheck, async (req, res) => {
             return res.status(404).json({ error: 'User not found' });
         }
 
-        // save total
+        // Save total
         user.table.total += req.body.newFoodItem.calories
         user.markModified('table.total')
         await user.save();
 
 
-        // save food
+        // Save food
 
         user.table.food[req.body.newFoodItem.food] = req.body.newFoodItem.calories;
         user.markModified('table');
@@ -86,7 +86,7 @@ router.post('/add', authCheck, async (req, res) => {
         console.log(user.table.food)
 
         console.log('Updated user:', updatedUser);
-        res.json(updatedUser); // Send the updated user as JSON
+        res.json(updatedUser); // Send the updated user
     } catch (error) {
         console.error('Error updating user:', error);
         res.status(500).json({ error: 'Error updating user' });
@@ -105,7 +105,7 @@ router.delete('/delete', authCheck, async (req, res) => {
             return res.status(404).json({ error: 'User not found' });
         }
 
-        // save total
+        // Save total
         user.table.total -= req.body.foodItem.calories
 
         if (user.table.total < 0)
@@ -115,7 +115,7 @@ router.delete('/delete', authCheck, async (req, res) => {
         await user.save();
 
 
-        // save food
+        // Save food
 
         const filteredFoodItems = Object.keys(user.table.food).reduce((acc, key) => {
             if (key !== req.body.foodItem.food) {
@@ -130,7 +130,7 @@ router.delete('/delete', authCheck, async (req, res) => {
         console.log(user.table.food)
 
         console.log('Updated user:', updatedUser);
-        res.json(updatedUser); // Send the updated user as JSON
+        res.json(updatedUser); // Send the updated user
     } catch (error) {
         console.error('Error updating user:', error);
         res.status(500).json({ error: 'Error updating user' });
@@ -155,12 +155,11 @@ router.post('/update-goal', authCheck, async (req, res) => {
         const updatedUser = await user.save();
 
         console.log('Updated user:', updatedUser);
-        res.json(updatedUser); // Send the updated user as JSON
+        res.json(updatedUser); // Send the updated user
     } catch (error) {
         console.error('Error updating user:', error);
         res.status(500).json({ error: 'Error updating user' });
     }
-
 });
 
 

@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 
 const Table = ({ user, setUser, setTotal, foodItems, setFoodItems }) => {
   
-  const [food, setFood] = useState(''); // State for user input (food)
-  const [calories, setCalories] = useState(''); // State for user input (calories)
+  const [food, setFood] = useState('');
+  const [calories, setCalories] = useState('');
 
   useEffect(() => {
-    // Filter out the 'test' key from user.table.food
+    // Filter out the 'test123' key from user.table.food
     const filteredFoodItems = Object.keys(user.table.food).reduce((acc, key) => {
       if (key !== 'test123') {
         acc[key] = user.table.food[key];
@@ -84,8 +84,7 @@ const Table = ({ user, setUser, setTotal, foodItems, setFoodItems }) => {
 
       setTotal((total) => total + Number(calories))
 
-      // update backend here
-      // Make a POST request to the Express.js server
+      // Update backend
       fetch('https://gainztracker-api.onrender.com/api/add', {
         method: 'POST',
         headers: {
@@ -97,7 +96,7 @@ const Table = ({ user, setUser, setTotal, foodItems, setFoodItems }) => {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data); // Log the server response
+          console.log(data);
           setUser(data)
         })
         .catch((error) => {

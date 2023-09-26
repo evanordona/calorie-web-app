@@ -2,8 +2,12 @@ import React, { useEffect } from 'react'
 import Axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
-const LoginSuccess = ({ user, setUser, setIsLoggedIn }) => {
+const LoginSuccess = ({ setUser, setIsLoggedIn }) => {
+
+    // Used to navigate to react route
     const navigate = useNavigate();
+
+    // Runs when mounted to update the user using the app
     useEffect(() => {
         async function fetchData() {
             try {
@@ -37,7 +41,6 @@ const LoginSuccess = ({ user, setUser, setIsLoggedIn }) => {
     return (
         <div className="min-h-screen bg-gray-100 flex items-center justify-center">
             <div className="text-center">
-
                 <h1 className="text-3xl font-semibold mt-28 mb-4">Login Success</h1>
             </div>
         </div>

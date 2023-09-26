@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import GoogleButton from 'react-google-button'
 
 
-const Login = ({ isLoggedIn, setIsLoggedIn, user, setUser }) => {
+const Login = () => {
 
     const redirectToGoogleSSO = () => {
         const googleLoginURL = "https://gainztracker-api.onrender.com/auth/google"

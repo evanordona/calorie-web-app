@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 const Progress = ({ user }) => {
+
   const [currentTableIndex, setCurrentTableIndex] = useState(0);
   const [currentTable, setCurrentTable] = useState({});
 
@@ -8,7 +9,7 @@ const Progress = ({ user }) => {
     if (currentTable !== undefined) {
       const dateObject = new Date(date);
 
-    // Extract the components of the date (month, day, and year)
+      // Extract the components of the date (month, day, and year)
       const month = (dateObject.getMonth() + 1).toString().padStart(2, '0');
       const day = dateObject.getDate().toString().padStart(2, '0');
       const year = dateObject.getFullYear();
