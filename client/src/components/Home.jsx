@@ -3,7 +3,6 @@ import PieGraph from './PieGraph.jsx';
 
 const Home = ({ user, setUser, total, setTotal, setHasEffectRun, hasEffectRun }) => {
     const [goal, setGoal] = useState(user.goal);
-
     const [newGoal, setNewGoal] = useState(''); // State to store the new goal value
 
     useEffect(() => {
@@ -20,7 +19,7 @@ const Home = ({ user, setUser, total, setTotal, setHasEffectRun, hasEffectRun })
             if (currentDate.getDate() > tableDate.getDate()) {
                 console.log("updating tables and creating default")
                 // Push the current user.table to user.prev_tables
-                const updatedPrevTables = [...user.prev_tables, user.table];
+                const updatedPrevTables = [user.table, ...user.prev_tables];
                 let streakUpdate;
                 // streak logic
                 if (user.table.total >= user.goal) {
@@ -34,7 +33,7 @@ const Home = ({ user, setUser, total, setTotal, setHasEffectRun, hasEffectRun })
                     date: currentDate.toISOString(), // Current date as ISO string
                     total: 0,
                     food: {
-                        test: 0
+                        test123: 0
                     }
                 };
 
